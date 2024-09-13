@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestClient;
 
 import java.util.List;
 
@@ -12,11 +11,14 @@ import java.util.List;
 @RequestMapping("/api/characters")
 public class RickAndMortyController {
 
-    RestClient.Builder builder = RestClient.builder();
-    private final RickAndMortyApiService rickAndMortyApiService = new RickAndMortyApiService(builder);
+    private final RickAndMortyApiService rickAndMortyApiService;
+
+    public RickAndMortyController(RickAndMortyApiService rickAndMortyApiService) {
+        this.rickAndMortyApiService = rickAndMortyApiService;
+    }
 
     @GetMapping
-    public List<RickAndMortyApiResponseResults> getAllCharacters(){
+    public List<RickAndMortyApiResponseResults> getAllCharacters() {
         return rickAndMortyApiService.getAllCharacters();
     }
 
